@@ -1,0 +1,15 @@
+#!/usr/bin/php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/App/events.php';
+
+define('OMEN_START_TIME', microtime(true));
+
+use Omen\Console\Bash;
+use Omen\Server\Server;
+
+$server = new Server();
+$server->Init();
+new Bash();
+$server->Start();
