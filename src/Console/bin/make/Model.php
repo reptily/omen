@@ -45,7 +45,7 @@ class Model extends Make implements bin
         $db->setAsGlobal();
         $db->bootEloquent();
 
-        $columns = $db->getConnection()->getSchemaBuilder()->getColumnListing('test'); //todo
+        $columns = $db->getConnection()->getSchemaBuilder()->getColumnListing(Str::toUnderScored($this->argv[2]));
         $const = "";
 
         foreach ($columns as $column) {
