@@ -84,10 +84,9 @@ class Omen implements OmenConst
     /**
      * @param string $key
      * @param mixed $value
-     * @param null $index
      * @return Omen
      */
-    static public function append(string $key, $value, ?string $index = null): Omen
+    static public function append(string $key, $value): Omen
     {
         if (!isset(self::$memory[$key])) {
             self::$memory[$key] = [];
@@ -98,11 +97,8 @@ class Omen implements OmenConst
             return static::getInstance();
         }
 
-        if ($index === null ) {
-            self::$memory[$key][] = $value;
-        } else {
-            self::$memory[$key][$index] = $value;
-        }
+        self::$memory[$key][] = $value;
+
         return static::getInstance();
     }
 
@@ -126,4 +122,21 @@ class Omen implements OmenConst
 
         return 0;
     }
+    
+    /**
+     * @param mixed $key
+     * @param mixed $value
+     * @return Omen
+     */
+    static public function remove(string $key, $index = null): Omen
+    {
+        if ($index !== null) {
+            unset(self::$memory[$key][$index]);
+        } else {
+            unset(self::$memory[$key]);
+        }
+        
+        return static::getInstance();
+    }
+    
 }
