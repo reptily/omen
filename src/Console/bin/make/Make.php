@@ -9,8 +9,6 @@ use Omen\Server\Config;
 
 abstract class Make
 {
-    /** @var string */
-    const DIR_PATH = __DIR__ . '/../../../../';
 
     /** @var null|string */
     protected $tpl = null;
@@ -42,12 +40,12 @@ abstract class Make
      */
     protected function make(string $file, string $dir): bool
     {
-        if (file_exists(self::DIR_PATH  . $dir . '/' . $file . '.php')) {
+        if (file_exists(getcwd() . '/' . $dir . '/' . $file . '.php')) {
             Console::PrintLn("Файл уже существует", Colors::RED);
             return false;
         }
 
-        $result = file_put_contents(self::DIR_PATH  . $dir . '/' . $file . '.php', $this->tpl);
+        $result = file_put_contents(getcwd() . '/' . $dir . '/' . $file . '.php', $this->tpl);
         if ($result === false) {
             return false;
         }
