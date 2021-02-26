@@ -36,6 +36,7 @@ class Server extends Decorator
         ],
     ];
 
+    //*
     public function Init(): void
     {
         Event::getInstance();
@@ -65,6 +66,10 @@ class Server extends Decorator
         parent::Init();
     }
 
+    /**
+     * @param TcpConnection $to
+     * @param string|null $text
+     */
     public function Send(TcpConnection $to, ?string $text): void
     {
         if ($text !== null ) {
@@ -74,6 +79,37 @@ class Server extends Decorator
 
         $session = Session::getInstance($to->id);
         \Omen\Trigger\Trigger::runTriggers($session);
+    }
+
+    /**
+     * @param TcpConnection $to
+     * @param string $text
+     */
+    static public function manualSend(TcpConnection $to, string $text): void
+    {
+        parent::Send($to, $text);
+        Console::PrintLn("Send to id: " . $to->id . " msg: ". $text);
+
+        $session = Session::getInstance($to->id);
+        \Omen\Trigger\Trigger::runTriggers($session);
+    }
+
+    /**
+     * @param string $text
+     */
+    static public function manualSendAll(string $text): void
+    {
+        foreach ((new Server)->getConnections() as $to) {
+            self::manualSend($to, $text);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function getConnections(): array
+    {
+        return $this->connections;
     }
 
     private function loadConfig()

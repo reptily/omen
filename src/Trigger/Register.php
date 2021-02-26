@@ -53,9 +53,9 @@ class Register
      * @param TcpConnection $connections
      * @return Register
      */
-    static public function add(string $name, TcpConnection $connections): Register
+    static public function add(string $name, TcpConnection $connection): Register
     {
-        self::$triggers[$name][] = $connections;
+        self::$triggers[$name][$connection->id] = $connection;
         return self::getInstance();
     }
 
@@ -65,5 +65,18 @@ class Register
     static public function getTriggers(): ?array
     {
         return self::$triggers;
+    }
+
+    /**
+     * @param int $connectionId
+     * @return Register
+     */
+    static public function deleteConnection(int $connectionId): Register
+    {
+        foreach (self::$triggers as $name => $trigger) {
+            unset(self::$triggers[$name][$connectionId]);
+        }
+
+        return self::getInstance();
     }
 }

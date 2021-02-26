@@ -72,6 +72,7 @@ abstract class Decorator
         if ($onConnectEvent !== null) {
             $this->Send($connection, Event::runEvent($onConnectEvent, $connection, $session));
         }
+        \Omen\Trigger\Register::deleteConnection($connection->id);
     }
 
     /**
