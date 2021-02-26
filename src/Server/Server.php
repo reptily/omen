@@ -82,16 +82,6 @@ class Server extends Decorator
     }
 
     /**
-     * @param string|null $text
-     */
-    public function SendAll(?string $text): void
-    {
-        foreach ($this->getConnections() as $to) {
-            $this->Send($to, $text);
-        }
-    }
-
-    /**
      * @param TcpConnection $to
      * @param string $text
      */

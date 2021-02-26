@@ -72,6 +72,7 @@ abstract class Decorator
         if ($onConnectEvent !== null) {
             $this->Send($connection, Event::runEvent($onConnectEvent, $connection, $session));
         }
+        \Omen\Trigger\Register::deleteConnection($connection->id);
     }
 
     /**
@@ -89,16 +90,6 @@ abstract class Decorator
     public function Send(TcpConnection $to, string $text): void
     {
         if (isset($this->connections[$to->id])) {
-            $this->connections[$to->id]->send($text);
-        }
-    }
-
-    /**
-     * @param string $text
-     */
-    public function SendAll(string $text): void
-    {
-        foreach ($this->connections as $to) {
             $this->connections[$to->id]->send($text);
         }
     }

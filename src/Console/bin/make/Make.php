@@ -40,7 +40,7 @@ abstract class Make
      */
     protected function make(string $file, string $dir): bool
     {
-        if (file_exists(self::DIR_PATH . '/' . $dir . '/' . $file . '.php')) {
+        if (file_exists(getcwd() . '/' . $dir . '/' . $file . '.php')) {
             Console::PrintLn("Файл уже существует", Colors::RED);
             return false;
         }
