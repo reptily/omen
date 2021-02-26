@@ -93,6 +93,16 @@ abstract class Decorator
         }
     }
 
+    /**
+     * @param string $text
+     */
+    public function SendAll(string $text): void
+    {
+        foreach ($this->connections as $to) {
+            $this->connections[$to->id]->send($text);
+        }
+    }
+
     private function dataHandle($data): ?array
     {
         $obj = json_decode($data, true) ?? [];
