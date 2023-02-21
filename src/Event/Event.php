@@ -67,13 +67,16 @@ class Event
         /** @var \Omen\Facade\Event $instance */
         if ($data === null) {
             $instance = new $event();
+            $instance->setConnectionId($connection->id);
             $instance->setSession($session);
             $result = $instance->$action();
         } else {
             $instance = new $event($data);
+            $instance->setConnectionId($connection->id);
             $instance->setSession($session);
             $result = $instance->$action($data);
         }
+
 
         if ($result instanceof DTO) {
             $response = Response::send($result);

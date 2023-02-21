@@ -14,12 +14,14 @@ class Message
     /** @var TcpConnection[]|null */
     protected $connections = null;
 
+
     public function __construct(array $connections)
     {
         $this->connections = $connections;
     }
 
-    public function send(string $type, $obj) {
+    public function send(string $type, $obj): void
+    {
         $dto = new DTO;
 
         try {

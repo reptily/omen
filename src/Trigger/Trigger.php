@@ -8,7 +8,9 @@ use Omen\Session;
 
 class Trigger
 {
-
+    /**
+     * @param Session $session
+     */
     static public function runTriggers(Session $session)
     {
         $triggers = Register::getTriggers();

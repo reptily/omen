@@ -19,6 +19,9 @@ class Event
     /** @var Session */
     protected $session;
 
+    /** @var int|null */
+    protected $connectionId = null;
+
     /**
      * @param string $type
      * @param array $obj
@@ -67,6 +70,21 @@ class Event
     }
 
     /**
+     * @param string $name
+     * @return bool
+     */
+    public function detachTrigger(string $name): bool
+    {
+        if (!isset($this->triggers[$name][$this->connectionId])){
+            return false;
+        }
+
+        unset($this->triggers[$name][$this->connectionId]);
+
+        return true;
+    }
+
+    /**
      * @return array
      */
     public function getTriggers(): array
@@ -84,8 +102,30 @@ class Event
         return $this;
     }
 
+    /**
+     * @return Session
+     */
     public function getSession(): Session
     {
         return $this->session;
+    }
+
+    /**
+     * @param int $connectionId
+     * @return Event
+     */
+    public function setConnectionId(int $connectionId): Event
+    {
+        $this->connectionId = $connectionId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null $connectionId
+     */
+    public function getConnectionId(): ?int
+    {
+        return $this->connectionId;
     }
 }

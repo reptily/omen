@@ -59,7 +59,7 @@ abstract class Decorator
         $session = Session::getInstance($connection->id);
 
         $onMessageEvent = Register::getOnMessageEvent($obj['type']);
-        if ($onMessageEvent!== null) {
+        if ($onMessageEvent !== null) {
             $this->Send($connection, Event::runEvent($onMessageEvent, $connection, $session, $obj['message']));
         }
     }
@@ -68,9 +68,9 @@ abstract class Decorator
     {
         $session = Session::getInstance($connection->id);
 
-        $onConnectEvent = Register::getOnDisconnectEvent();
-        if ($onConnectEvent !== null) {
-            $this->Send($connection, Event::runEvent($onConnectEvent, $connection, $session));
+        $onDisconnectEvent = Register::getOnDisconnectEvent();
+        if ($onDisconnectEvent !== null) {
+            $this->Send($connection, Event::runEvent($onDisconnectEvent, $connection, $session));
         }
         \Omen\Trigger\Register::deleteConnection($connection->id);
     }
@@ -102,8 +102,12 @@ abstract class Decorator
             return null;
         }
 
-        if (!isset($obj['message']) || !is_array($obj['message'])) {
+        if (!isset($obj['message'])) {
             return null;
+        }
+
+        if (!is_array($obj['message'])) {
+            $obj['message'] = [$obj['message']];
         }
 
         return $obj;

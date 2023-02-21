@@ -32,7 +32,7 @@ class Omen implements OmenConst
     /**
      * construct denied
      */
-    private function __construct()
+    public function __construct()
     {
         //denied
     }
@@ -40,14 +40,14 @@ class Omen implements OmenConst
     /**
      * clone denied
      */
-    private function __clone(){
+    public function __clone(){
         //denied
     }
 
     /**
      * wakeup denied
      */
-    private function __wakeup(){
+    public function __wakeup(){
         //denied
     }
 

@@ -37,7 +37,7 @@ class Register
     /**
      * construct denied
      */
-    private function __construct()
+    public function __construct()
     {
         //denied
     }
@@ -45,14 +45,14 @@ class Register
     /**
      * clone denied
      */
-    private function __clone(){
+    public function __clone(){
         //denied
     }
 
     /**
      * wakeup denied
      */
-    private function __wakeup(){
+    public function __wakeup(){
         //denied
     }
 

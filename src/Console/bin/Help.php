@@ -97,6 +97,6 @@ class Help implements bin
      */
     public function getBinByName(string $name): ?string
     {
-        return $this->bins[$name] ? $name : null;
+        return $this->bins[$name] ?? null ? $name : null;
     }
 }
